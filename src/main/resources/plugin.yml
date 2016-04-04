@@ -1,0 +1,4 @@
+name: EndlessGame
+version: 1.0
+main: fr.keyzou.endlessgame.Main
+depend: [SamaGamesAPI, WorldEdit]
