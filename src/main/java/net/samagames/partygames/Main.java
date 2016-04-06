@@ -1,11 +1,10 @@
-package fr.keyzou.endlessgame;
+package net.samagames.partygames;
 
-import fr.keyzou.endlessgame.entities.EndlessPlayer;
-import fr.keyzou.endlessgame.game.EndlessGame;
-import fr.keyzou.endlessgame.entities.nms.PNJ;
 import net.minecraft.server.v1_9_R1.EntityInsentient;
 import net.minecraft.server.v1_9_R1.EntityTypes;
 import net.samagames.api.SamaGamesAPI;
+import net.samagames.partygames.entities.nms.NPC;
+import net.samagames.partygames.game.PartyGames;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,23 +15,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-/**
- * Created by Dean on 28/03/2016.
- */
 public class Main extends JavaPlugin{
 
     @Override
     public void onEnable(){
-        EndlessGame game = new EndlessGame("id", "Endless Game", "Survivez à la série de mini-jeux !", EndlessPlayer.class, this);
+        PartyGames game = new PartyGames(this);
         SamaGamesAPI.get().getGameManager().registerGame(game);
-        registerEntity("CustomVillager", 120, PNJ.class);
+
+        registerEntity("CustomVillager", 120, NPC.class);
     }
 
     /**
      * Using reflection to add a custom entity to Minecraft's entity list
      * @param name Name of the Entity
      * @param id id of the entity (120 is EntityVillager)
-     * @param customClass {@link PNJ} class
+     * @param customClass {@link NPC} class
      */
     private void registerEntity(String name, int id, Class<? extends EntityInsentient> customClass){
         try {

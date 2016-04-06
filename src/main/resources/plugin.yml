@@ -1,4 +1,4 @@
-name: EndlessGame
+name: PartyGames
 version: 1.0
-main: fr.keyzou.endlessgame.Main
+main: net.samagames.partygames.Main
 depend: [SamaGamesAPI, WorldEdit]

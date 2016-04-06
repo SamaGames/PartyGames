@@ -1,6 +1,6 @@
-package fr.keyzou.endlessgame.entities.nms;
+package net.samagames.partygames.entities.nms;
 
-import fr.keyzou.endlessgame.entities.nms.ai.PathfinderGoalWalk;
+import net.samagames.partygames.entities.nms.ai.PathfinderGoalWalk;
 import com.google.common.collect.Sets;
 import net.minecraft.server.v1_9_R1.EntityVillager;
 import net.minecraft.server.v1_9_R1.PathfinderGoalSelector;
@@ -12,26 +12,26 @@ import org.bukkit.Location;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 
-public class PNJ extends EntityVillager {
+public class NPC extends EntityVillager {
     /**
-     * PNJ's destination
+     * NPC's destination
      */
     private Location objective;
     /**
-     * If it's either a good or bad PNJ
+     * If it's either a good or bad NPC
      */
     private boolean good;
     /**
-     * How many ticks did the PNJ live
+     * How many ticks did the NPC live
      */
     private int life;
 
-    public PNJ(World world, Location obj, boolean good) {
+    public NPC(World world, Location obj, boolean good) {
         super(world);
         this.objective = obj;
         this.good = good;
         /*
-        Par la suite on utilise la reflection pour récupérer l'AI du PNJ et la redéfinir.
+        Par la suite on utilise la reflection pour récupérer l'AI du NPC et la redéfinir.
          */
         try {
             Field bField = Reflection.getField(PathfinderGoalSelector.class, "b");
@@ -43,15 +43,15 @@ public class PNJ extends EntityVillager {
             cField.set(goalSelector, Sets.newLinkedHashSet());
             cField.set(targetSelector, Sets.newLinkedHashSet());
         } catch (Exception e) {
-            Bukkit.getLogger().log(Level.SEVERE, "Erreur Reflection PNJ", e);
+            Bukkit.getLogger().log(Level.SEVERE, "Erreur Reflection NPC", e);
         }
         this.setProfession(good ? 1 : 2); // 1 = vêtement blanc / 2 = vêtement violet
-        this.goalSelector.a(0, new PathfinderGoalWalk(this, objective)); // On rend notre PNJ intelligent
+        this.goalSelector.a(0, new PathfinderGoalWalk(this, objective)); // On rend notre NPC intelligent
     }
 
     /**
-     * Get the PNJ's destination
-     * @return PNJ's destination
+     * Get the NPC's destination
+     * @return NPC's destination
      */
     public Location getObjective() {
         return objective;
@@ -66,7 +66,7 @@ public class PNJ extends EntityVillager {
     }
 
     /**
-     * Adds "life" to the PNJ (increments by one each tick)
+     * Adds "life" to the NPC (increments by one each tick)
      * @param life
      */
     public void addLife(int life) {
