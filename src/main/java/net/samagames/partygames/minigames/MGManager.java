@@ -1,7 +1,10 @@
 package net.samagames.partygames.minigames;
 
+import net.samagames.api.SamaGamesAPI;
+import net.samagames.api.games.Status;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.game.PartyGames;
+import net.samagames.partygames.tasks.MiniGameStartTimer;
 import net.samagames.tools.Titles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -35,10 +38,6 @@ public class MGManager {
             miniGameList.add(game);
     }
 
-    public void initMiniGames(){
-        miniGameList.forEach(MiniGame::initGame);
-    }
-
     private void nextMiniGame(){
         currentGameID++;
         if (currentGameID >= miniGameList.size()) {
@@ -50,35 +49,18 @@ public class MGManager {
     }
 
     private void update(){
-        if(finished){
-            updateTask.cancel();
-            endGame();
-            return;
-        }
+        if(miniGameList.get(currentGameID).mustEnd()){
+            if(miniGameList.size() > currentGameID + 1) {
+                currentGameID++;
 
-        if(miniGameList.get(currentGameID).shouldEnd){
-            Bukkit.broadcastMessage(ChatColor.BLUE+"Le prochain jeu est "+ChatColor.BOLD + ChatColor.GREEN + miniGameList.get(currentGameID+1).name);
-            Bukkit.broadcastMessage("Les règles sont les suivantes:");
-            Bukkit.broadcastMessage(miniGameList.get(currentGameID+1).getDescription());
-            timerTask = Bukkit.getScheduler().runTaskTimerAsynchronously(game.getPlugin(), () -> {
-                if(timer > 0) {
-                    timer--;
-                    Bukkit.broadcastMessage("La partie commence dans "+timer+" secondes !");
-                }
-                else{
-                    nextMiniGame();
-                    timerTask.cancel();
-                }
-            }, 20L, 20L);
+                switchMiniGame(miniGameList.get(currentGameID));
+            } else {
+                game.handleGameEnd();
+            }
         }
-    }
-
-    private void endGame() {
-        //game.getRegisteredGamePlayers().values().forEach(player -> Titles.sendTitle(player.getPlayerIfOnline(), 0, 22, 0, "Testouille", "Et le grand gagnant est: "));
     }
 
     public void startGame(){
-
         // Assign one room ID per user
         int i = 0;
         for(PartyGamesPlayer p : game.getRegisteredGamePlayers().values()) {
@@ -87,8 +69,19 @@ public class MGManager {
         }
 
         currentGameID = 0;
-        miniGameList.get(currentGameID).startGame();
+        switchMiniGame(miniGameList.get(0));
 
         updateTask = Bukkit.getScheduler().runTaskTimerAsynchronously(game.getPlugin(), this::update, 0L, 20L);
+    }
+
+    private void switchMiniGame(MiniGame miniGame) {
+        SamaGamesAPI.get().getGameManager().getCoherenceMachine().setNameShortcut(miniGame.getName());
+        miniGame.initGame();
+
+        Bukkit.broadcastMessage(ChatColor.BLUE + "Le prochain jeu est " + ChatColor.BOLD + ChatColor.GREEN + miniGame.getName());
+        Bukkit.broadcastMessage("Les règles sont les suivantes :");
+        Bukkit.broadcastMessage(miniGame.getDescription());
+
+        new MiniGameStartTimer(miniGame).runTaskTimer(game.getPlugin(), 0L, 20L);
     }
 }

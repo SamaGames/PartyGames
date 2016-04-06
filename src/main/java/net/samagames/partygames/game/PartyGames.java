@@ -1,10 +1,13 @@
 package net.samagames.partygames.game;
 
+import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.Main;
 import net.samagames.partygames.minigames.MGManager;
 import net.samagames.partygames.minigames.blockdodger.BlockDodger;
-import net.samagames.partygames.minigames.villagerrun.VillagerRun;
 import net.samagames.api.games.Game;
+import org.bukkit.Bukkit;
+import org.bukkit.WorldCreator;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class PartyGames extends Game<PartyGamesPlayer> {
 
@@ -34,7 +37,6 @@ public class PartyGames extends Game<PartyGamesPlayer> {
 
         mgManager = new MGManager(this);
         mgManager.addMiniGame(new BlockDodger(this));
-        mgManager.initMiniGames();
     }
 
     public Main getPlugin(){
