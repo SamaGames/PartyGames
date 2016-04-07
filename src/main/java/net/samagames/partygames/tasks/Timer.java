@@ -4,10 +4,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Timer extends BukkitRunnable {
 
+    private int initialTime;
     protected int time;
 
     public Timer(int time) {
-        this.time = time;
+        this.time = initialTime = time;
     }
 
     @Override
@@ -17,6 +18,10 @@ public class Timer extends BukkitRunnable {
         }
 
         time--;
+    }
+
+    public int getInitialTime() {
+        return initialTime;
     }
 
     public int getTime() {

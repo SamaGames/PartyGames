@@ -59,7 +59,24 @@ public class BlockDodger extends MiniGame{
 
     @Override
     public void endGame() {
+        timer.cancel();
+        task.cancel();
 
+        for(PartyGamesPlayer player : rooms.keySet()) {
+            BlockDodgerRoom room = rooms.get(player);
+
+            if(room.isActive()) {
+                room.setActive(false);
+                room.clearBlocks();
+
+                player.givePoints(timer.getInitialTime());
+
+                Bukkit.broadcastMessage(ChatColor.YELLOW + "Le temps est écoulé.");
+                player.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ " + timer.getInitialTime() + " points");
+            }
+        }
+
+        shouldEnd = true;
     }
 
     public Timer getTimer() {

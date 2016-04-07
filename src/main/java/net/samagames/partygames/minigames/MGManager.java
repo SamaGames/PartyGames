@@ -38,16 +38,6 @@ public class MGManager {
             miniGameList.add(game);
     }
 
-    private void nextMiniGame(){
-        currentGameID++;
-        if (currentGameID >= miniGameList.size()) {
-            finished = true;
-            return;
-        }
-
-        miniGameList.get(currentGameID).startGame();
-    }
-
     private void update(){
         if(miniGameList.get(currentGameID).mustEnd()){
             if(miniGameList.size() > currentGameID + 1) {

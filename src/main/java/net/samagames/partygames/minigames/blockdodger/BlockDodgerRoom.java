@@ -19,6 +19,8 @@ public class BlockDodgerRoom {
     private ColumnAxis columnAxis;
     private List<Block> movingBlocks;
 
+    private boolean active;
+
     public BlockDodgerRoom(JsonObject json) {
         this.json = json;
 
@@ -33,6 +35,8 @@ public class BlockDodgerRoom {
         }
 
         movingBlocks = new ArrayList<>();
+
+        active = true;
     }
 
     public Location getSpawn() {
@@ -66,6 +70,7 @@ public class BlockDodgerRoom {
                     z--;
                 }
             }
+            new Location(blockPos1.getWorld(), x, y, z).getBlock().setType(Material.AIR);
 
             if(x < blockPos2.getBlockX()) {
                 x++;
@@ -73,10 +78,30 @@ public class BlockDodgerRoom {
                 x--;
             }
         }
+
+        int z = blockPos1.getBlockZ();
+        while(z != blockPos2.getBlockZ()) {
+            new Location(blockPos1.getWorld(), x, y, z).getBlock().setType(Material.AIR);
+
+            if(z < blockPos2.getBlockZ()) {
+                z++;
+            } else {
+                z--;
+            }
+        }
+        new Location(blockPos1.getWorld(), x, y, z).getBlock().setType(Material.AIR);
     }
 
     public List<Block> getMovingBlocks() {
         return movingBlocks;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public enum ColumnAxis {

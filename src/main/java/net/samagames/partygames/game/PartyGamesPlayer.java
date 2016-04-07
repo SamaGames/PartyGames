@@ -12,7 +12,7 @@ public class PartyGamesPlayer extends GamePlayer {
         super(player);
     }
 
-    public void addPoints(int points){
+    public void givePoints(int points){
         this.points += points;
     }
 

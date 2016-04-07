@@ -1,11 +1,7 @@
 package net.samagames.partygames.minigames;
 
-import net.samagames.partygames.Main;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.game.PartyGames;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class MiniGame {
 
@@ -29,7 +25,7 @@ public abstract class MiniGame {
     public abstract void endGame();
 
     public void addPoints(PartyGamesPlayer player, int points){
-        player.addPoints(points);
+        player.givePoints(points);
     }
 
     public PartyGames getGame(){
