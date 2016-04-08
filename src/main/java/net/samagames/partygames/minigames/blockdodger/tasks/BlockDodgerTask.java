@@ -96,19 +96,19 @@ public class BlockDodgerTask extends BukkitRunnable {
             x = room.getBlockPos1().getBlockZ();
             if (room.getBlockPos1().getBlockZ() < room.getBlockPos2().getBlockZ()) {
                 z = ThreadLocalRandom.current().nextInt(room.getBlockPos1().getBlockZ(),
-                        room.getBlockPos2().getBlockZ());
+                        room.getBlockPos2().getBlockZ() + 1);
             } else {
                 z = ThreadLocalRandom.current().nextInt(room.getBlockPos2().getBlockZ(),
-                        room.getBlockPos1().getBlockZ());
+                        room.getBlockPos1().getBlockZ() + 1);
             }
         } else {
             z = room.getBlockPos1().getBlockZ();
             if (room.getBlockPos1().getBlockX() < room.getBlockPos2().getBlockX()) {
                 x = ThreadLocalRandom.current().nextInt(room.getBlockPos1().getBlockX(),
-                        room.getBlockPos2().getBlockX());
+                        room.getBlockPos2().getBlockX() + 1);
             } else {
                 x = ThreadLocalRandom.current().nextInt(room.getBlockPos2().getBlockX(),
-                        room.getBlockPos1().getBlockX());
+                        room.getBlockPos1().getBlockX() + 1);
             }
         }
 
