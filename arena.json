@@ -1,0 +1,44 @@
+{
+	"games": {
+		"blockdodger": {
+			"rooms": [
+				{
+					"spawn": "BlockDodger, -805.5, 4.0, -502.5, -180.0, 0.0",
+					"blocks": {
+						"pos1": "BlockDodger, -808.0, 4.0, -513.0, 0.0, 0.0",
+						"pos2": "BlockDodger, -804.0, 4.0, -503.0, 0.0, 0.0"
+					},
+					"columnAxis": "Z"
+				}, {
+					"spawn": "BlockDodger, -778.5, 4.0, -502.5, -180.0, 0.0",
+					"blocks": {
+						"pos1": "BlockDodger, -781.0, 4.0, -513.0, 0.0, 0.0",
+						"pos2": "BlockDodger, -777.0, 4.0, -503.0, 0.0, 0.0"
+					},
+					"columnAxis": "Z"
+				}, {
+					"spawn": "BlockDodger, -750.5, 4.0, -501.5, -180.0, 0.0",
+					"blocks": {
+						"pos1": "BlockDodger, -753.0, 4.0, -512.0, 0.0, 0.0",
+						"pos2": "BlockDodger, -749.0, 4.0, -502.0, 0.0, 0.0"
+					},
+					"columnAxis": "Z"
+				}, {
+					"spawn": "BlockDodger, -724.5, 4.0, -501.5, -180.0, 0.0",
+					"blocks": {
+						"pos1": "BlockDodger, -727.0, 4.0, -512.0, 0.0, 0.0",
+						"pos2": "BlockDodger, -723.0, 4.0, -502.0, 0.0, 0.0"
+					},
+					"columnAxis": "Z"
+				}, {
+					"spawn": "BlockDodger, -698.5, 4.0, -506.5, -180.0, 0.0",
+					"blocks": {
+						"pos1": "BlockDodger, -701.0, 4.0, -517.0, 0.0, 0.0",
+						"pos2": "BlockDodger, -697.0, 4.0, -507.0, 0.0, 0.0"
+					},
+					"columnAxis": "Z"
+				}
+			]
+		}
+	}
+}

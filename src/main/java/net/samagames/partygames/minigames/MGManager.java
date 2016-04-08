@@ -45,6 +45,7 @@ public class MGManager {
 
                 switchMiniGame(miniGameList.get(currentGameID));
             } else {
+                updateTask.cancel();
                 game.handleGameEnd();
             }
         }

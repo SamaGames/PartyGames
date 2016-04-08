@@ -16,6 +16,10 @@ public class PartyGamesPlayer extends GamePlayer {
         this.points += points;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
     public int getRoomId() {
         return roomId;
     }

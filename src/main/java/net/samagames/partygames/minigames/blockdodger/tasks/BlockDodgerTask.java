@@ -74,6 +74,8 @@ public class BlockDodgerTask extends BukkitRunnable {
 
             if (newBlock.getLocation().equals(player.getPlayerIfOnline().getLocation().getBlock().getLocation())) {
                 int points = miniGame.getTimer().getInitialTime() - miniGame.getTimer().getTime();
+                points /= 0.3; // Make points amount with 100 as maximal instead of 30
+
                 player.givePoints(points);
                 room.setActive(false);
                 room.clearBlocks();

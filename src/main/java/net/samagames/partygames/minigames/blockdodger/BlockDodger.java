@@ -69,7 +69,7 @@ public class BlockDodger extends MiniGame{
                 room.setActive(false);
                 room.clearBlocks();
 
-                player.givePoints(timer.getInitialTime());
+                player.givePoints((int) (timer.getInitialTime() / 0.3));
 
                 Bukkit.broadcastMessage(ChatColor.YELLOW + "Le temps est écoulé.");
                 player.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ " + timer.getInitialTime() + " points");

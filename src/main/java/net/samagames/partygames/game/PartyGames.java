@@ -7,7 +7,10 @@ import net.samagames.partygames.minigames.blockdodger.BlockDodger;
 import net.samagames.api.games.Game;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.*;
 
 public class PartyGames extends Game<PartyGamesPlayer> {
 
@@ -37,6 +40,50 @@ public class PartyGames extends Game<PartyGamesPlayer> {
 
         mgManager = new MGManager(this);
         mgManager.addMiniGame(new BlockDodger(this));
+    }
+
+    @Override
+    public void handleGameEnd() {
+        super.handleGameEnd();
+
+        Comparator<PartyGamesPlayer> comparator = (PartyGamesPlayer p1, PartyGamesPlayer p2)
+                -> p2.getPoints() - p1.getPoints();
+        SortedSet<PartyGamesPlayer> players = new TreeSet<>(comparator);
+        players.addAll(getInGamePlayers().values());
+
+        List<PartyGamesPlayer> winners = new ArrayList<>();
+
+        Iterator<PartyGamesPlayer> it = players.iterator();
+        int i = 0;
+        while(it.hasNext()) {
+            PartyGamesPlayer player = it.next();
+
+            if(i <= 2) {
+                player.addStars(3 - i, "Classé n°" + (i + 1));
+
+                winners.add(player);
+            }
+
+            player.addCoins(player.getPoints() / 5, player.getPoints() + " points");
+
+            i++;
+        }
+
+        // For making tests with less than three players
+        if(winners.size() < 2)
+            winners.add(winners.get(0));
+        if(winners.size() < 3)
+            winners.add(winners.get(1));
+
+        SamaGamesAPI.get().getGameManager().getCoherenceMachine().getTemplateManager()
+                .getPlayerLeaderboardWinTemplate()
+                .execute(winners.get(0).getPlayerIfOnline(),
+                        winners.get(1).getPlayerIfOnline(),
+                        winners.get(2).getPlayerIfOnline(),
+                        "Ça sert à quoi ça lol ?",
+                        winners.get(0).getPoints(),
+                        winners.get(1).getPoints(),
+                        winners.get(2).getPoints());
     }
 
     public Main getPlugin(){
