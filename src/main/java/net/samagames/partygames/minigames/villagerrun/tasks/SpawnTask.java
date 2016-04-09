@@ -20,7 +20,6 @@ public class SpawnTask extends BukkitRunnable {
     @Override
     public void run() {
         if(game.mustEnd()){
-            this.cancel();
             return;
         }
 
@@ -28,5 +27,6 @@ public class SpawnTask extends BukkitRunnable {
         game.getRoomManager().spawnNPC(spawnID, random.nextBoolean());
         SpawnTask nextTask = new SpawnTask(game);
         nextTask.runTaskLater(game.getGame().getPlugin(), game.getSpawnFrequency());
+        this.cancel();
     }
 }

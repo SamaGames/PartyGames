@@ -3,7 +3,6 @@ package net.samagames.partygames.minigames.villagerrun.rooms;
 import net.minecraft.server.v1_9_R1.BlockPosition;
 import net.minecraft.server.v1_9_R1.Entity;
 import net.minecraft.server.v1_9_R1.World;
-import net.samagames.api.games.GamePlayer;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.villagerrun.entities.NPC;
 import net.samagames.tools.ParticleEffect;
@@ -32,14 +31,13 @@ public class RoomManager {
      */
     private List<Room> roomsRemove = new ArrayList<>();
 
-    /**
-     * First {@link Room}, serves as template for the next ones
-     */
-    private Room firstRoom;
-
     public void startGame(){
         roomsPlaying.addAll(rooms);
         roomsPlaying.forEach(Room::startGame);
+    }
+
+    public void addRoom(Room r){
+        rooms.add(r);
     }
 
     /**
@@ -52,7 +50,7 @@ public class RoomManager {
             Location loc = room.villagerSpawnPoints.get(spawnerID);
             World mcWorld = ((CraftWorld) loc.getWorld()).getHandle();
             NPC npc = new NPC(mcWorld, room.fencesLocations.get(spawnerID), isGood);
-            npc.setLocation(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), 0, 0);
+            npc.setLocation(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), loc.getYaw(), loc.getPitch());
             mcWorld.addEntity(npc);
             room.addNPC(npc);
         });
@@ -158,35 +156,7 @@ public class RoomManager {
         roomsPlaying.forEach(Room::updateRoom);
     }
 
-    /**
-     * Create the first room that serves as template to every next room
-     * @param playerSpawn
-     * @param originList
-     * @param destinationList
-     */
-    public void createFirstRoom(Location playerSpawn, List<Location> originList, List<Location> destinationList) {
-        firstRoom = new Room(playerSpawn, originList, destinationList);
-        rooms.add(firstRoom);
-    }
-
-    /**
-     * Creates a new room and move it by "zOffset" blocks
-     * @param zOffset
-     */
-    public void duplicateRoom(int zOffset){
-        rooms.add(firstRoom.duplicate(zOffset));
-    }
-
-    /**
-     * Attach a player to a room
-     * @param roomID
-     * @param player
-     */
-    public void dispatchPlayer(int roomID, PartyGamesPlayer player){
-        rooms.get(roomID).attachPlayer(player);
-    }
-
     public int getVillagerSpawnCount(){
-        return firstRoom.villagerSpawnPoints.size();
+        return rooms.get(0).villagerSpawnPoints.size();
     }
 }

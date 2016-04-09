@@ -1,25 +1,20 @@
 package net.samagames.partygames.minigames.villagerrun.rooms;
 
-import com.sk89q.worldedit.*;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
-import com.sk89q.worldedit.world.DataException;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.villagerrun.entities.NPC;
+import net.samagames.tools.LocationUtils;
 import net.samagames.tools.scoreboards.ObjectiveSign;
 import net.samagames.tools.scoreboards.VObjective;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 
-class Room {
+public class Room {
 
     private PartyGamesPlayer attachedPlayer;
     /**
@@ -47,41 +42,34 @@ class Room {
 
     private ObjectiveSign scoreBoard;
 
-    Room(Location loc, List<Location> villagerSpawnPoints, List<Location> destinationPoints){
-        spawnPoint = loc;
-        this.villagerSpawnPoints = villagerSpawnPoints;
-        this.fencesLocations = destinationPoints;
+    public Room(JsonObject json){
+        spawnPoint = LocationUtils.str2loc(json.get("playerSpawn").getAsString());
+        JsonArray paths = json.get("paths").getAsJsonArray();
+        List<Location> originList = new ArrayList<>();
+        List<Location> destinationList = new ArrayList<>();
+
+        paths.forEach(jsonElement -> {
+            JsonObject entry = jsonElement.getAsJsonObject();
+            originList.add(LocationUtils.str2loc(entry.get("origin").getAsString()));
+            destinationList.add(LocationUtils.str2loc(entry.get("destination").getAsString()));
+        });
+
+        villagerSpawnPoints.addAll(originList);
+        fencesLocations.addAll(destinationList);
     }
 
     /**
      * Generates the room and the scoreboard
      */
     void startGame(){
-        generateRoom();
         scoreBoard = new ObjectiveSign("villagerRun", ChatColor.AQUA+""+ChatColor.BOLD+"     Villager Run     ");
         scoreBoard.addReceiver(attachedPlayer.getPlayerIfOnline());
         scoreBoard.setLocation(VObjective.ObjectiveLocation.SIDEBAR);
         scoreBoard.setLine(1, ChatColor.GOLD+""+ChatColor.BOLD+"Score:");
         scoreBoard.setLine(2, "0");
         scoreBoard.setLine(4, ChatColor.GOLD+""+ChatColor.BOLD+"Erreurs:");
-        attachedPlayer.getPlayerIfOnline().teleport(spawnPoint);
     }
 
-    /**
-     * Loads and paste the {@link WorldEdit} schematic at the player spawn location
-     */
-    private void generateRoom(){
-        org.bukkit.World world = Bukkit.getWorld("world");
-        EditSessionFactory esf = WorldEdit.getInstance().getEditSessionFactory();
-        EditSession es = esf.getEditSession(new BukkitWorld(world), -1);
-        File file = new File("room.schematic");
-        Vector loc = new Vector(spawnPoint.getBlockX(), spawnPoint.getBlockY(), spawnPoint.getBlockZ());
-        try {
-            MCEditSchematicFormat.getFormat(file).load(file).paste(es, loc, false);
-        } catch (MaxChangedBlocksException | IOException | DataException e) {
-            Bukkit.getLogger().log(Level.SEVERE, "Erreur [VR]", e);
-        }
-    }
 
     /**
      * Called when a player loses, clears the room and set the player as spectator
@@ -125,22 +113,12 @@ class Room {
     PartyGamesPlayer getRoomPlayer(){
         return attachedPlayer;
     }
-    void attachPlayer(PartyGamesPlayer player){
+    public void attachPlayer(PartyGamesPlayer player){
         attachedPlayer = player;
     }
 
-    /**
-     * Create a new room and moves it by zOffset blocks
-     * @param zOffset gap between the current room and the new one
-     * @return the new {@link Room}
-     */
-    Room duplicate(int zOffset){
-        List<Location> newOriginList = new ArrayList<>();
-        List<Location> newDestinationList = new ArrayList<>();
-        villagerSpawnPoints.forEach(location -> newOriginList.add(new Location(location.getWorld(), location.getX(), location.getY(), location.getZ()+zOffset)));
-        fencesLocations.forEach(location -> newDestinationList.add(new Location(location.getWorld(), location.getX(), location.getY(), location.getZ()+zOffset)));
-        Location newSpawn = new Location(spawnPoint.getWorld(), spawnPoint.getX(), spawnPoint.getY(), spawnPoint.getZ()+zOffset);
-        return new Room(newSpawn, newOriginList, newDestinationList);
-    }
 
+    public Location getSpawnPoint(){
+        return spawnPoint;
+    }
 }

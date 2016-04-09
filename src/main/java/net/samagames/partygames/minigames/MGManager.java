@@ -62,7 +62,7 @@ public class MGManager {
         currentGameID = 0;
         switchMiniGame(miniGameList.get(0));
 
-        updateTask = Bukkit.getScheduler().runTaskTimerAsynchronously(game.getPlugin(), this::update, 0L, 20L);
+        updateTask = Bukkit.getScheduler().runTaskTimer(game.getPlugin(), this::update, 0L, 20L);
     }
 
     private void switchMiniGame(MiniGame miniGame) {

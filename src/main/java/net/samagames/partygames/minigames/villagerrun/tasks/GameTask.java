@@ -16,12 +16,6 @@ public class GameTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if(game.mustEnd()){
-            Bukkit.getScheduler().cancelTask(game.getVerifTaskID());
-            this.cancel();
-            return;
-        }
-
         game.incrementSecondsElapsed();
         if(game.getSecondsElapsed() % 30 == 0 && game.getSpawnFrequency() > 20){
             game.reduceSpawnFrequency();
@@ -32,7 +26,7 @@ public class GameTask extends BukkitRunnable {
         game.getRoomManager().checkErrors();
         game.getRoomManager().cleanRooms();
 
-        if(game.getRoomManager().getRoomsPlayingCount() <= 1 && !game.mustEnd()){
+        if(game.getRoomManager().getRoomsPlayingCount() <= 0 && !game.mustEnd()){
             game.setWinner(game.getRoomManager().getRoomPlayer(0));
             game.endGame();
         }
