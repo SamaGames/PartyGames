@@ -40,8 +40,6 @@ public class PartyGames extends Game<PartyGamesPlayer> {
 
         mgManager = new MGManager(this);
         mgManager.addMiniGame(new BlockDodger(this));
-
-        mgManager.handlePreInit();
     }
 
     @Override
