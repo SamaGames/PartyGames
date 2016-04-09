@@ -20,6 +20,10 @@ public abstract class MiniGame {
         this.game = game;
     }
 
+    public void handlePostMiniGameRegistration(){
+
+    }
+
     public abstract void initGame();
     public abstract void startGame();
     public abstract void endGame();

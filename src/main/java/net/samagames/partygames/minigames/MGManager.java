@@ -19,14 +19,9 @@ public class MGManager {
 
     private int currentGameID;
 
-    private boolean finished;
-
     private PartyGames game;
 
     private BukkitTask updateTask;
-
-    private BukkitTask timerTask;
-    private int timer = 5;
 
     public MGManager(PartyGames game)
     {
@@ -74,5 +69,9 @@ public class MGManager {
         Bukkit.broadcastMessage(miniGame.getDescription());
 
         new MiniGameStartTimer(miniGame).runTaskTimer(game.getPlugin(), 0L, 20L);
+    }
+
+    public void handlePreInit(){
+        miniGameList.forEach(MiniGame::handlePostMiniGameRegistration);
     }
 }
