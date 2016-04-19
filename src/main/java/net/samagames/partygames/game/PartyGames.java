@@ -40,8 +40,8 @@ public class PartyGames extends Game<PartyGamesPlayer> {
         super.handlePostRegistration();
 
         mgManager = new MGManager(this);
-        mgManager.addMiniGame(new BlockDodger(this));
         mgManager.addMiniGame(new VillagerRun(this));
+        mgManager.addMiniGame(new BlockDodger(this));
     }
 
     @Override

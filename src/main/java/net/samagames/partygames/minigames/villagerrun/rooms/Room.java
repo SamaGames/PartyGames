@@ -50,7 +50,10 @@ public class Room {
 
         paths.forEach(jsonElement -> {
             JsonObject entry = jsonElement.getAsJsonObject();
-            originList.add(LocationUtils.str2loc(entry.get("origin").getAsString()));
+            Location origin = LocationUtils.str2loc(entry.get("origin").getAsString());
+            origin.setPitch(Float.parseFloat(entry.get("origin").getAsString().split(", ")[5]));
+            origin.setYaw(Float.parseFloat(entry.get("origin").getAsString().split(", ")[4]));
+            originList.add(origin);
             destinationList.add(LocationUtils.str2loc(entry.get("destination").getAsString()));
         });
 

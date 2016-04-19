@@ -12,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class RoomManager {
             Location loc = room.villagerSpawnPoints.get(spawnerID);
             World mcWorld = ((CraftWorld) loc.getWorld()).getHandle();
             NPC npc = new NPC(mcWorld, room.fencesLocations.get(spawnerID), isGood);
-            npc.setLocation(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), loc.getYaw(), loc.getPitch());
+            npc.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), 90, loc.getPitch());
             mcWorld.addEntity(npc);
             room.addNPC(npc);
         });

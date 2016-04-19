@@ -34,7 +34,7 @@ public class PathfinderGoalWalk extends PathfinderGoal {
      */
     @Override
     public void c(){
-        this.npc.getNavigation().a(objective.getBlockX(), objective.getBlockY(), objective.getBlockZ(), 0.5f );
+        this.npc.getNavigation().a(objective.getBlockX(), objective.getBlockY(), objective.getBlockZ(), 0.6);
     }
 
     /**
