@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 
@@ -51,7 +52,7 @@ public class RoomManager {
             Location loc = room.villagerSpawnPoints.get(spawnerID);
             World mcWorld = ((CraftWorld) loc.getWorld()).getHandle();
             NPC npc = new NPC(mcWorld, room.fencesLocations.get(spawnerID), isGood);
-            npc.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), 90, loc.getPitch());
+            npc.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
             mcWorld.addEntity(npc);
             room.addNPC(npc);
         });
@@ -85,20 +86,30 @@ public class RoomManager {
      * Check every NPC and check its position if it's not moving anymore (stopped in front of the door / on the objective)
      */
     public void checkRoomsNPC() {
-        roomsPlaying.forEach(room -> room.npcList.stream().filter(npc -> !room.npcToRemove.contains(npc)).forEach(npc-> handleNPC(room, npc)));
+        roomsPlaying.forEach(room -> room.npcList.forEach(npc -> {
+            if(room.npcToRemove.contains(npc))
+                return;
+            handleNPC(room, npc);
+        }));
     }
 
     private void handleNPC(Room room, NPC npc){
-        if ((npc.motX == 0) && (npc.motZ == 0) && (npc.getLife() > 10)) {
-            Location npcLoc = new Location(Bukkit.getServer().getWorld("world"), npc.locX, npc.locY, npc.locZ);
+        if(room.npcToRemove.contains(npc) || !npc.isAlive())
+            return;
+        if ((npc.motX == 0) && (npc.motZ == 0)) {
+            Location npcLoc = new Location(Bukkit.getServer().getWorld("VillagerRun"), npc.locX, npc.locY, npc.locZ);
             BlockPosition npcPos = new BlockPosition(npc.locX, npc.locY, npc.locZ);
-            BlockPosition objPos = new BlockPosition(npc.getObjective().getBlockX() + 0.5, npc.getObjective().getBlockY(), npc.getObjective().getBlockZ() + 0.5);
-            if(compare(npcPos, objPos, room, npc) == 1) {
+            BlockPosition objPos = new BlockPosition(npc.getObjective().getX(), npc.getObjective().getY(), npc.getObjective().getZ());
+            if(objPos.getZ() - npcPos.getZ() > 2) {
+                return;
+            }
+            int compare = compare(npcPos, objPos, room, npc);
+            if(compare == 1) {
                 ParticleEffect.HEART.display(0.3f, 1, 0.3f, 1, 5, npcLoc, 5);
                 room.getRoomPlayer().getPlayerIfOnline().playSound(npcLoc, Sound.BLOCK_NOTE_HARP, 1, 1.5f);
                 room.getRoomPlayer().getPlayerIfOnline().playSound(npcLoc, Sound.BLOCK_NOTE_HARP, 1, 1.7f);
-            }else if(compare(npcPos, objPos, room, npc) == 0) {
-                ParticleEffect.CLOUD.display(0.3f, 0.3f, 0.3f, 0.2f, 10, new Location(Bukkit.getServer().getWorld("world"), npc.locX, npc.locY, npc.locZ), 5);
+            }else if(compare == 0) {
+                ParticleEffect.CLOUD.display(0.3f, 0.3f, 0.3f, 0.2f, 10, npcLoc, 5);
                 room.getRoomPlayer().getPlayerIfOnline().playSound(npcLoc, Sound.BLOCK_NOTE_BASS, 1, 0.7f);
                 room.getRoomPlayer().getPlayerIfOnline().playSound(npcLoc, Sound.BLOCK_NOTE_BASS, 1, 0.2f);
             } else{

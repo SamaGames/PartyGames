@@ -8,6 +8,7 @@ import net.samagames.tools.LocationUtils;
 import net.samagames.tools.scoreboards.ObjectiveSign;
 import net.samagames.tools.scoreboards.VObjective;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -81,7 +82,6 @@ public class Room {
         // clear npc list
         npcList.forEach(this::removeNPC);
         // Add to Waiting List
-        attachedPlayer.setSpectator();
         attachedPlayer = null;
         // Reset scores
         errors = 0;

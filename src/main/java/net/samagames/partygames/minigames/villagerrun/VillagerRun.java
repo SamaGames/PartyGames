@@ -97,7 +97,7 @@ public class VillagerRun extends MiniGame {
         spawnTask.cancel();
         verifTask.cancel();
         roomManager.clearRooms();
-        winner.givePoints(10);
+        //winner.givePoints(10);
         shouldEnd = true;
     }
 
