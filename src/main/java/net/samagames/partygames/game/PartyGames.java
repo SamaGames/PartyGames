@@ -5,6 +5,7 @@ import net.samagames.partygames.Main;
 import net.samagames.partygames.minigames.MGManager;
 import net.samagames.partygames.minigames.blockdodger.BlockDodger;
 import net.samagames.api.games.Game;
+import net.samagames.partygames.minigames.villagerrun.VillagerRun;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
@@ -39,9 +40,8 @@ public class PartyGames extends Game<PartyGamesPlayer> {
         super.handlePostRegistration();
 
         mgManager = new MGManager(this);
+        mgManager.addMiniGame(new VillagerRun(this));
         mgManager.addMiniGame(new BlockDodger(this));
-
-        mgManager.handlePreInit();
     }
 
     @Override

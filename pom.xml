@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fr.keyzou</groupId>
-    <artifactId>endlessgame</artifactId>
+    <groupId>net.samagames</groupId>
+    <artifactId>partygames</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -24,12 +24,13 @@
             <id>samagames-developpers</id>
             <url>http://maven.samagames.net/developpers/</url>
         </repository>
+
     </repositories>
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.9-R0.1-SNAPSHOT</version>
+            <version>1.9.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -42,7 +43,7 @@
         <dependency>
             <groupId>net.samagames</groupId>
             <artifactId>SamaGamesAPI</artifactId>
-            <version>1.0.0</version>
+            <version>4.0.0</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

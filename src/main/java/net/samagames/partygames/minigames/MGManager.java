@@ -19,9 +19,14 @@ public class MGManager {
 
     private int currentGameID;
 
+    private boolean finished;
+
     private PartyGames game;
 
     private BukkitTask updateTask;
+
+    private BukkitTask timerTask;
+    private int timer = 5;
 
     public MGManager(PartyGames game)
     {
@@ -57,7 +62,7 @@ public class MGManager {
         currentGameID = 0;
         switchMiniGame(miniGameList.get(0));
 
-        updateTask = Bukkit.getScheduler().runTaskTimerAsynchronously(game.getPlugin(), this::update, 0L, 20L);
+        updateTask = Bukkit.getScheduler().runTaskTimer(game.getPlugin(), this::update, 0L, 20L);
     }
 
     private void switchMiniGame(MiniGame miniGame) {
@@ -69,9 +74,5 @@ public class MGManager {
         Bukkit.broadcastMessage(miniGame.getDescription());
 
         new MiniGameStartTimer(miniGame).runTaskTimer(game.getPlugin(), 0L, 20L);
-    }
-
-    public void handlePreInit(){
-        miniGameList.forEach(MiniGame::handlePostMiniGameRegistration);
     }
 }

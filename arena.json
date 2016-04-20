@@ -39,6 +39,217 @@
 					"columnAxis": "Z"
 				}
 			]
+		},
+		"villagerrun": {
+			"min-spawnFrequency": 40,
+			"max-spawnFrequency": 20,
+			"rooms": [
+				{
+					"playerSpawn": "VillagerRun, 748.5, 4.0, -255.5, 180.0, 0.0",
+					"paths":[
+						{
+							"origin": "VillagerRun, 744.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 744.5, 4, -257.5, 0, 0"
+						},
+						{
+							"origin": "VillagerRun, 745.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 745.5, 4, -257.5, 0, 0"
+						},
+						{
+							"origin": "VillagerRun, 746.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 746.5, 4, -257.5, 0, 0"
+						},
+						{
+							"origin": "VillagerRun, 747.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 747.5, 4, -257.5, 0, 0"
+						},
+						{
+							"origin": "VillagerRun, 748.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 748.5, 4, -257.5, 0, 0"
+						},
+						{
+							"origin": "VillagerRun, 749.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 749.5, 4, -257.5, 0, 0"
+						},
+						{
+							"origin": "VillagerRun, 750.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 750.5, 4, -257.5, 0, 0"
+						},
+						{
+							"origin": "VillagerRun, 751.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 751.5, 4, -257.5, 0, 0"
+						},
+						{
+							"origin": "VillagerRun, 752.5, 4, -265.5, 180, 0",
+							"destination": "VillagerRun, 752.5, 4, -257.5, 0, 0"
+						}
+					]
+				},
+				{
+					"playerSpawn": "VillagerRun, 759.5, 4.0, -255.5, 0.0, 0.0",
+					"paths":[
+						{
+							"origin": "VillagerRun, 785, 4, -254, 0, -180",
+							"destination": "VillagerRun, 785, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 784, 4, -254, 0, -180",
+							"destination": "VillagerRun, 784, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 783, 4, -254, 0, -180",
+							"destination": "VillagerRun, 783, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 782, 4, -254, 0, -180",
+							"destination": "VillagerRun, 782, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 781, 4, -254, 0, -180",
+							"destination": "VillagerRun, 781, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 780, 4, -254, 0, -180",
+							"destination": "VillagerRun, 780, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 779, 4, -254, 0, -180",
+							"destination": "VillagerRun, 779, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 778, 4, -254, 0, -180",
+							"destination": "VillagerRun, 778, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 777, 4, -254, 0, -180",
+							"destination": "VillagerRun, 777, 4, -262, 0, -180"
+						}
+					]
+				},
+				{
+					"playerSpawn": "VillagerRun, 770.5, 4.0, -255.5, 0.0, 0.0",
+					"paths":[
+						{
+							"origin": "VillagerRun, 774, 4, -254, 0, -180",
+							"destination": "VillagerRun, 774, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 773, 4, -254, 0, -180",
+							"destination": "VillagerRun, 773, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 772, 4, -254, 0, -180",
+							"destination": "VillagerRun, 772, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 771, 4, -254, 0, -180",
+							"destination": "VillagerRun, 771, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 770, 4, -254, 0, -180",
+							"destination": "VillagerRun, 770, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 769, 4, -254, 0, -180",
+							"destination": "VillagerRun, 769, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 768, 4, -254, 0, -180",
+							"destination": "VillagerRun, 768, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 767, 4, -254, 0, -180",
+							"destination": "VillagerRun, 767, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 766, 4, -254, 0, -180",
+							"destination": "VillagerRun, 766, 4, -262, 0, -180"
+						}
+					]
+				},
+				{
+					"playerSpawn": "VillagerRun, 781.5, 4.0, -255.5, 0.0, 0.0",
+					"paths":[
+						{
+							"origin": "VillagerRun, 763, 4, -254, 0, -180",
+							"destination": "VillagerRun, 763, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 762, 4, -254, 0, -180",
+							"destination": "VillagerRun, 762, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 761, 4, -254, 0, -180",
+							"destination": "VillagerRun, 761, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 760, 4, -254, 0, -180",
+							"destination": "VillagerRun, 760, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 759, 4, -254, 0, -180",
+							"destination": "VillagerRun, 759, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 758, 4, -254, 0, -180",
+							"destination": "VillagerRun, 758, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 757, 4, -254, 0, -180",
+							"destination": "VillagerRun, 757, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 756, 4, -254, 0, -180",
+							"destination": "VillagerRun, 756, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 755, 4, -254, 0, -180",
+							"destination": "VillagerRun, 755, 4, -262, 0, -180"
+						}
+					]
+				},
+				{
+					"playerSpawn": "VillagerRun, 792.5, 4.0, -255.5, 0.0, 0.0",
+					"paths":[
+						{
+							"origin": "VillagerRun, 752, 4, -254, 0, -180",
+							"destination": "VillagerRun, 752, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 751, 4, -254, 0, -180",
+							"destination": "VillagerRun, 751, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 750, 4, -254, 0, -180",
+							"destination": "VillagerRun, 750, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 749, 4, -254, 0, -180",
+							"destination": "VillagerRun, 749, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 748, 4, -254, 0, -180",
+							"destination": "VillagerRun, 748, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 747, 4, -254, 0, -180",
+							"destination": "VillagerRun, 747, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 746, 4, -254, 0, -180",
+							"destination": "VillagerRun, 746, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 745, 4, -254, 0, -180",
+							"destination": "VillagerRun, 745, 4, -262, 0, -180"
+						},
+						{
+							"origin": "VillagerRun, 744, 4, -254, 0, -180",
+							"destination": "VillagerRun, 744, 4, -262, 0, -180"
+						}
+					]
+				}
+			]
 		}
 	}
 }

@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
 
 public class MiniGameStartTimer extends Timer {
 
-    public static final int START_TIME = 20;
+    public static final int START_TIME = 5;
 
     private MiniGame miniGame;
 
