@@ -2,6 +2,10 @@ package net.samagames.partygames.minigames;
 
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.game.PartyGames;
+import org.bukkit.event.entity.PlayerDeathEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class MiniGame {
 
@@ -14,10 +18,13 @@ public abstract class MiniGame {
 
     protected PartyGamesPlayer winner;
 
+    protected List<PartyGamesPlayer> players;
+
     public MiniGame(String name, String description, PartyGames game){
         this.name = name;
         this.description = description;
         this.game = game;
+        players = new ArrayList<>();
     }
 
     public abstract void initGame();
@@ -47,4 +54,17 @@ public abstract class MiniGame {
     public String getDescription() {
         return description;
     }
+
+    public List<PartyGamesPlayer> getPlayers(){
+        return players;
+    }
+
+    public void removePlayer(PartyGamesPlayer player){
+        players.remove(player);
+    }
+
+    public void handlePlayerDeath(PlayerDeathEvent e){
+        
+    }
+
 }

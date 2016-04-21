@@ -253,7 +253,8 @@
 		},
 		"skyfall": {
 			"room-size": 11,
-			"spawn": "VillagerRun, 773, 250, -222, 0, 0"
+			"spawn": "VillagerRun, 773, 250, -222, 0, 0",
+			"floor-break-time": 10
 		}
 	}
 }
