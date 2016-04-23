@@ -8,6 +8,8 @@ import net.samagames.partygames.tasks.MiniGameStartTimer;
 import net.samagames.tools.Titles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.event.Event;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
@@ -74,5 +76,15 @@ public class MGManager {
         Bukkit.broadcastMessage(miniGame.getDescription());
 
         new MiniGameStartTimer(miniGame).runTaskTimer(game.getPlugin(), 0L, 20L);
+    }
+
+    public void sendEvent(Event e){
+        if(e instanceof PlayerDeathEvent){
+            getCurrentMinigame().handlePlayerDeath((PlayerDeathEvent) e);
+        }
+    }
+
+    public MiniGame getCurrentMinigame(){
+        return miniGameList.get(currentGameID);
     }
 }
