@@ -96,6 +96,8 @@ public class Skyfall extends MiniGame {
             partyGamesPlayer.givePoints(10);
             partyGamesPlayer.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ 10 points");
         });
+
+        shouldEnd = true;
     }
 
     public void handlePlayerDeath(PlayerDeathEvent e){
