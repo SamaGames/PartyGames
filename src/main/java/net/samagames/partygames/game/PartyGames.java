@@ -19,11 +19,15 @@ public class PartyGames extends Game<PartyGamesPlayer> {
     public static final String NAME = "PartyGames";
     public static final String DESCRIPTION = "Survivez à la série de mini-jeux !";
 
+    private Random random;
+
     private Main plugin;
     private MGManager mgManager;
 
     public PartyGames(Main plugin) {
         super(CODE_NAME, NAME, DESCRIPTION, PartyGamesPlayer.class);
+
+        random = new Random(System.currentTimeMillis());
 
         this.plugin = plugin;
     }
@@ -94,5 +98,9 @@ public class PartyGames extends Game<PartyGamesPlayer> {
 
     public MGManager getMgManager() {
         return mgManager;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 }
