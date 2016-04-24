@@ -7,6 +7,7 @@ import net.samagames.partygames.minigames.blockdodger.BlockDodger;
 import net.samagames.api.games.Game;
 import net.samagames.partygames.minigames.skyfall.Skyfall;
 import net.samagames.partygames.minigames.villagerrun.VillagerRun;
+import net.samagames.partygames.minigames.thedrawer.TheDrawer;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
@@ -22,11 +23,15 @@ public class PartyGames extends Game<PartyGamesPlayer> {
     public static final String NAME = "PartyGames";
     public static final String DESCRIPTION = "Survivez à la série de mini-jeux !";
 
+    private Random random;
+
     private Main plugin;
     private MGManager mgManager;
 
     public PartyGames(Main plugin) {
         super(CODE_NAME, NAME, DESCRIPTION, PartyGamesPlayer.class);
+
+        random = new Random(System.currentTimeMillis());
 
         this.plugin = plugin;
     }
@@ -46,6 +51,7 @@ public class PartyGames extends Game<PartyGamesPlayer> {
         mgManager.addMiniGame(new Skyfall(this));
         mgManager.addMiniGame(new VillagerRun(this));
         mgManager.addMiniGame(new BlockDodger(this));
+        mgManager.addMiniGame(new TheDrawer(this));
     }
 
     @Override
@@ -86,7 +92,7 @@ public class PartyGames extends Game<PartyGamesPlayer> {
                 .execute(winners.get(0).getPlayerIfOnline(),
                         winners.get(1).getPlayerIfOnline(),
                         winners.get(2).getPlayerIfOnline(),
-                        "Ça sert à quoi ça lol ?",
+                        "",
                         winners.get(0).getPoints(),
                         winners.get(1).getPoints(),
                         winners.get(2).getPoints());
@@ -98,5 +104,9 @@ public class PartyGames extends Game<PartyGamesPlayer> {
 
     public MGManager getMgManager() {
         return mgManager;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 }

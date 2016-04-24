@@ -255,6 +255,65 @@
 			"room-size": 11,
 			"spawn": "VillagerRun, 773, 250, -222, 0, 0",
 			"floor-break-time": 10
+		},
+		"thedrawer": {
+			"rooms": [
+				{
+					"spawn": "TheDrawer, -822.5, 4.0, -500.5, -180, 0.0",
+					"template": {
+						"pos1": "TheDrawer, -825.0, 9.0, -509.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -821.0, 7.0, -509.0, 0.0, 0.0"
+					},
+					"drawing": {
+						"pos1": "TheDrawer, -825.0, 6.0, -509.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -821.0, 4.0, -509.0, 0.0, 0.0"
+					}
+				},
+				{
+					"spawn": "TheDrawer, -806.5, 4.0, -500.5, -180, 0.0",
+					"template": {
+						"pos1": "TheDrawer, -809.0, 9.0, -509.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -805.0, 7.0, -509.0, 0.0, 0.0"
+					},
+					"drawing": {
+						"pos1": "TheDrawer, -809.0, 6.0, -509.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -805.0, 4.0, -509.0, 0.0, 0.0"
+					}
+				},
+				{
+					"spawn": "TheDrawer, -790.5, 4.0, -500.5, -180, 0.0",
+					"template": {
+						"pos1": "TheDrawer, -793.0, 9.0, -509.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -789.0, 7.0, -509.0, 0.0, 0.0"
+					},
+					"drawing": {
+						"pos1": "TheDrawer, -793.0, 6.0, -509.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -789.0, 4.0, -509.0, 0.0, 0.0"
+					}
+				},
+				{
+					"spawn": "TheDrawer, -774.5, 4.0, -500.5, -180, 0.0",
+					"template": {
+						"pos1": "TheDrawer, -777.0, 9.0, -509.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -773.0, 7.0, -509.0, 0.0, 0.0"
+					},
+					"drawing": {
+						"pos1": "TheDrawer, -777.0, 6.0, -509.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -773.0, 4.0, -509.0, 0.0, 0.0"
+					}
+				},
+				{
+					"spawn": "TheDrawer, -757.5, 4.0, -501.5, -180, 0.0",
+					"template": {
+						"pos1": "TheDrawer, -760.0, 9.0, -510.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -756.0, 7.0, -510.0, 0.0, 0.0"
+					},
+					"drawing": {
+						"pos1": "TheDrawer, -760.0, 6.0, -510.0, 0.0, 0.0",
+						"pos2": "TheDrawer, -756.0, 4.0, -510.0, 0.0, 0.0"
+					}
+				}
+			]
 		}
 	}
 }

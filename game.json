@@ -4,7 +4,8 @@
     "max-slots": 5,
     "options": {
     	"worlds": [
-    		"BlockDodger"
+    		"BlockDodger",
+    		"TheDrawer"
     	]
     }
 }
