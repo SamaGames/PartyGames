@@ -79,11 +79,10 @@ public class Room {
      * Called when a player loses, clears the room and set the player as spectator
      */
     void lose(){
-        // clear npc list
         npcList.forEach(this::removeNPC);
-        // Add to Waiting List
+        scoreBoard.clearScores();
+        scoreBoard.removeReceiver(attachedPlayer.getPlayerIfOnline());
         attachedPlayer = null;
-        // Reset scores
         errors = 0;
         score = 0;
     }

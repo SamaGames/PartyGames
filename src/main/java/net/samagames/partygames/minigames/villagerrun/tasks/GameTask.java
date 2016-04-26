@@ -3,7 +3,6 @@ package net.samagames.partygames.minigames.villagerrun.tasks;
 import net.samagames.partygames.minigames.villagerrun.VillagerRun;
 import net.md_5.bungee.api.ChatColor;
 import net.samagames.tools.GameUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameTask extends BukkitRunnable {

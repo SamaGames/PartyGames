@@ -3,6 +3,7 @@ package net.samagames.partygames.minigames.skyfall.tasks;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.minigames.skyfall.Skyfall;
 import net.samagames.partygames.tasks.Timer;
+import net.samagames.tools.Titles;
 import org.bukkit.ChatColor;
 
 public class FloorBreakTimer extends Timer {
@@ -15,7 +16,7 @@ public class FloorBreakTimer extends Timer {
 
     @Override
     public void run(){
-        if(game.getPlayers().size() <= 1 || game.getRound() > 9) {
+        if(game.getPlayers().size() <= 1|| game.getRound() > 6) {
             game.endGame();
             this.cancel();
         }
@@ -27,9 +28,8 @@ public class FloorBreakTimer extends Timer {
             if(!game.getPlayers().isEmpty()){
                 time = 10;
             }
-        } else if(time % 10 == 0 || time <= 5) {
-            SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-                    .writeCustomMessage(ChatColor.YELLOW + "Le sol va se détruire dans "+ChatColor.RED+time+" secondes"+ChatColor.YELLOW+".", true);
+        } else if(time <= 10) {
+            game.getPlayers().forEach(partyGamesPlayer -> Titles.sendTitle(partyGamesPlayer.getPlayerIfOnline(), 0, 22, 0, ChatColor.RED + "" + ChatColor.BOLD + this.time, "secondes avant l'écroulement du sol !"));
         }
         super.run();
     }

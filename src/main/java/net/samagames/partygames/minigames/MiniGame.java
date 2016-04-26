@@ -2,6 +2,7 @@ package net.samagames.partygames.minigames;
 
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.game.PartyGames;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.ArrayList;
@@ -63,8 +64,8 @@ public abstract class MiniGame {
         players.remove(player);
     }
 
-    public void handlePlayerDeath(PlayerDeathEvent e){
-        
-    }
+    public void handlePlayerDeath(PlayerDeathEvent e){}
+
+    public void handleDamage(EntityDamageEvent e){}
 
 }

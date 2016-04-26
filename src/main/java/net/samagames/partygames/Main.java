@@ -7,9 +7,9 @@ import net.samagames.partygames.game.PartyGames;
 import net.samagames.partygames.minigames.villagerrun.entities.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -70,6 +70,11 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerDeathEvent(PlayerDeathEvent e){
+        game.getMgManager().sendEvent(e);
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent e){
         game.getMgManager().sendEvent(e);
     }
 

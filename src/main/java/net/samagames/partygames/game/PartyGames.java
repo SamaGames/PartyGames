@@ -7,6 +7,7 @@ import net.samagames.partygames.minigames.blockdodger.BlockDodger;
 import net.samagames.api.games.Game;
 import net.samagames.partygames.minigames.skyfall.Skyfall;
 import net.samagames.partygames.minigames.villagerrun.VillagerRun;
+<<<<<<< Updated upstream
 import net.samagames.partygames.minigames.thedrawer.TheDrawer;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -14,6 +15,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+=======
+import net.samagames.tools.LocationUtils;
+import org.bukkit.Location;
+>>>>>>> Stashed changes
 
 import java.util.*;
 
@@ -27,6 +32,7 @@ public class PartyGames extends Game<PartyGamesPlayer> {
 
     private Main plugin;
     private MGManager mgManager;
+    private Location waitingRoom;
 
     public PartyGames(Main plugin) {
         super(CODE_NAME, NAME, DESCRIPTION, PartyGamesPlayer.class);
@@ -46,6 +52,8 @@ public class PartyGames extends Game<PartyGamesPlayer> {
     @Override
     public void handlePostRegistration(){
         super.handlePostRegistration();
+
+        waitingRoom = LocationUtils.str2loc(SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs().get("waiting-room").getAsString());
 
         mgManager = new MGManager(this);
         mgManager.addMiniGame(new Skyfall(this));
@@ -96,6 +104,10 @@ public class PartyGames extends Game<PartyGamesPlayer> {
                         winners.get(0).getPoints(),
                         winners.get(1).getPoints(),
                         winners.get(2).getPoints());
+    }
+
+    public Location getWaitingRoom(){
+        return waitingRoom;
     }
 
     public Main getPlugin(){
