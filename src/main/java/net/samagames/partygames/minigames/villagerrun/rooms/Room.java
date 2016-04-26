@@ -123,4 +123,8 @@ public class Room {
     public Location getSpawnPoint(){
         return spawnPoint;
     }
+
+    ObjectiveSign getScoreboard(){
+        return scoreBoard;
+    }
 }

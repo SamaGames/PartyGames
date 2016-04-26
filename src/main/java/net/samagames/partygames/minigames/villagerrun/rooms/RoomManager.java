@@ -157,6 +157,7 @@ public class RoomManager {
      */
     public void clearRooms(){
         roomsPlaying.forEach(room -> {
+            room.getScoreboard().removeReceiver(room.getRoomPlayer().getPlayerIfOnline());
             room.npcList.forEach(Entity::die);
             room.npcToRemove.forEach(Entity::die);
             room.npcList.clear();

@@ -11,6 +11,7 @@ import net.samagames.partygames.tasks.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
+import org.bukkit.GameMode;
 import org.bukkit.event.HandlerList;
 import org.bukkit.material.Wool;
 
@@ -54,6 +55,7 @@ public class TheDrawer extends MiniGame{
             rooms.put(player, room);
 
             player.getPlayerIfOnline().teleport(room.getSpawn());
+            player.getPlayerIfOnline().setGameMode(GameMode.SURVIVAL);
             room.clearBlocks();
         });
 
