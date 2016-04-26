@@ -7,23 +7,9 @@ import net.samagames.partygames.minigames.blockdodger.BlockDodger;
 import net.samagames.api.games.Game;
 import net.samagames.partygames.minigames.skyfall.Skyfall;
 import net.samagames.partygames.minigames.villagerrun.VillagerRun;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 import net.samagames.partygames.minigames.thedrawer.TheDrawer;
-import org.bukkit.Bukkit;
-import org.bukkit.WorldCreator;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-=======
 import net.samagames.tools.LocationUtils;
 import org.bukkit.Location;
->>>>>>> Stashed changes
-=======
-import net.samagames.tools.LocationUtils;
-import org.bukkit.Location;
->>>>>>> Stashed changes
 
 import java.util.*;
 
