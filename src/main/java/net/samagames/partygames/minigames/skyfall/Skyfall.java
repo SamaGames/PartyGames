@@ -3,6 +3,7 @@ package net.samagames.partygames.minigames.skyfall;
 import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.game.PartyGames;
+import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.MiniGame;
 import net.samagames.partygames.minigames.skyfall.tasks.FloorBreakTimer;
 import net.samagames.tools.LocationUtils;
@@ -10,7 +11,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Skyfall extends MiniGame {
@@ -25,6 +26,8 @@ public class Skyfall extends MiniGame {
     private int round = 0;
 
     private int fallDistance = 40;
+
+    private Map<Integer, PartyGamesPlayer> winners = new HashMap<>();
 
     private static final Material[] GOOD_BLOCKS = { Material.SLIME_BLOCK, Material.WATER };
     private static final Material[] BAD_BLOCKS = { Material.WOOD, Material.WOOL, Material.STONE, Material.OBSIDIAN, Material.GLASS};
@@ -83,12 +86,22 @@ public class Skyfall extends MiniGame {
 
     @Override
     public void endGame() {
-        players.forEach(partyGamesPlayer -> {
-            partyGamesPlayer.getPlayerIfOnline().setMaxHealth(20);
-            partyGamesPlayer.getPlayerIfOnline().setHealth(20);
-            partyGamesPlayer.givePoints(10);
-            partyGamesPlayer.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ 10 points");
+        winners.put(1, players.get(0));
+
+        winners.forEach((i, partyGamesPlayer) -> {
+            int points = 0;
+            if(i == 1)
+                points = 100;
+            if(i == 2)
+                points = 50;
+            if(i == 3)
+                points = 25;
+            winners.get(i).getPlayerIfOnline().setMaxHealth(20);
+            winners.get(i).getPlayerIfOnline().setHealth(20);
+            winners.get(i).givePoints(points);
+            winners.get(i).getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ "+points+" points");
         });
+
         shouldEnd = true;
     }
 
@@ -99,6 +112,10 @@ public class Skyfall extends MiniGame {
             if(entity.getHealth() - e.getDamage() <= 0) {
                 Bukkit.broadcastMessage(ChatColor.RED + entity.getDisplayName() +" est mort !");
                 players.remove(game.getPlayer(e.getEntity().getUniqueId()));
+                if(players.size() == 2)
+                    winners.put(3, game.getPlayer(e.getEntity().getUniqueId()));
+                else if(players.size() == 1)
+                    winners.put(2, game.getPlayer(e.getEntity().getUniqueId()));
                 entity.setMaxHealth(20);
                 entity.setHealth(20);
                 entity.setGameMode(GameMode.SPECTATOR);

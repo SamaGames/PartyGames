@@ -45,7 +45,7 @@ public class BlockListener implements Listener {
                     e.getPlayer().sendMessage(ChatColor.GREEN + "\nVotre dessin correspond au modèle !");
                     e.getPlayer().sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Vous avez gagné ce mini-jeu.");
 
-                    int pts = miniGame.getTimer().getTime() * 5;
+                    int pts = miniGame.getTimer().getTime() > 10 ? 100 :  miniGame.getTimer().getTime() * 10;
                     player.givePoints(pts);
                     player.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ " + pts + " points");
                 } else {
