@@ -91,7 +91,8 @@ public class BlockDodgerTask extends BukkitRunnable {
         }
 
         int y = room.getBlockPos1().getBlockY();
-        int x, z;
+        int x;
+        int z;
         if (room.getColumnAxis().equals(BlockDodgerRoom.ColumnAxis.X_AXIS)) {
             x = room.getBlockPos1().getBlockZ();
             if (room.getBlockPos1().getBlockZ() < room.getBlockPos2().getBlockZ()) {

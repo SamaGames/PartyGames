@@ -47,9 +47,12 @@ public class MGManager {
         switchMiniGame(miniGameList.get(0));
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         // Must NOT be Asynchronous because some methods it may call use the Bukkit API
         updateTask = Bukkit.getScheduler().runTaskTimer(game.getPlugin(), this::update, 0L, 20L);
 =======
+=======
+>>>>>>> Stashed changes
         updateTask = Bukkit.getScheduler().runTaskTimer(game.getPlugin(), () -> {
             if(miniGameList.get(currentGameID).mustEnd()){
                 if(miniGameList.size() > currentGameID + 1) {
@@ -62,6 +65,9 @@ public class MGManager {
                 }
             }
         }, 0L, 20L);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 
