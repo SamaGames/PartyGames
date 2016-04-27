@@ -4,7 +4,6 @@ import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.game.PartyGames;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.MiniGame;
-import net.samagames.partygames.minigames.blockdodger.tasks.BlockDodgerTask;
 import net.samagames.partygames.minigames.thedrawer.listeners.BlockListener;
 import net.samagames.partygames.minigames.thedrawer.tasks.TheDrawerTask;
 import net.samagames.partygames.tasks.Timer;
@@ -16,14 +15,15 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.material.Wool;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TheDrawer extends MiniGame{
 
-    public static final String NAME = "The Drawer";
-    public static final String DESCRIPTION = "Vous allez devoir reproduire un modèle consitué de blocs de laine de différentes couleurs " +
+    private static final String NAME = "The Drawer";
+    private static final String DESCRIPTION = "Vous allez devoir reproduire un modèle consitué de blocs de laine de différentes couleurs " +
             "généré aléatoirement. Vous n'avez que 20 secondes pour ce faire, alors faites vite !";
 
-    public static final DyeColor[] DYE_COLORS = {
+    private static final DyeColor[] DYE_COLORS = {
             DyeColor.WHITE,
             DyeColor.ORANGE,
             DyeColor.LIGHT_BLUE,
@@ -92,8 +92,7 @@ public class TheDrawer extends MiniGame{
         timer.cancel();
         task.cancel();
 
-        for(PartyGamesPlayer player : rooms.keySet()) {
-            TheDrawerRoom room = rooms.get(player);
+        rooms.forEach((partyGamesPlayer, room) -> {
 
             if(room.isActive()) {
                 room.setActive(false);
@@ -101,7 +100,7 @@ public class TheDrawer extends MiniGame{
 
                 Bukkit.broadcastMessage(ChatColor.RED + "Le temps est écoulé.");
             }
-        }
+        });
 
         shouldEnd = true;
     }
@@ -110,11 +109,15 @@ public class TheDrawer extends MiniGame{
         return timer;
     }
 
-    public HashMap<PartyGamesPlayer, TheDrawerRoom> getRooms() {
+    public Map<PartyGamesPlayer, TheDrawerRoom> getRooms() {
         return rooms;
     }
 
     public TheDrawerTask getTask() {
         return task;
     }
+    public static DyeColor[] getDyeColors() {
+        return DYE_COLORS;
+    }
+
 }

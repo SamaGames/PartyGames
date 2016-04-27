@@ -57,6 +57,9 @@ public class Skyfall extends MiniGame {
         });
     }
 
+    /**
+     * Generating two layers of random blocks which will be destroyed in the future
+     */
     public void generateRoom(){
         for(int z = 0; z < roomSize; z++){
             for(int x = 0; x < roomSize; x++){
@@ -69,6 +72,10 @@ public class Skyfall extends MiniGame {
         }
     }
 
+    /**
+     * Destroys the layer of random blocks.
+     * @param layer
+     */
     public void destroyLayer(int layer){
         for(int z = 0; z < roomSize; z++){
             for(int x = 0; x < roomSize; x++){
@@ -86,7 +93,7 @@ public class Skyfall extends MiniGame {
 
     @Override
     public void endGame() {
-        winners.put(1, players.get(0));
+        players.forEach(partyGamesPlayer -> winners.put(1, partyGamesPlayer));
 
         winners.forEach((i, partyGamesPlayer) -> {
             int points = 0;

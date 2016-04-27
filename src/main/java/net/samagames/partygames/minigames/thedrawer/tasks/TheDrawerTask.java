@@ -3,8 +3,6 @@ package net.samagames.partygames.minigames.thedrawer.tasks;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.thedrawer.TheDrawer;
 import net.samagames.partygames.minigames.thedrawer.TheDrawerRoom;
-import net.samagames.partygames.minigames.thedrawer.listeners.BlockListener;
-import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -68,7 +66,7 @@ public class TheDrawerTask extends BukkitRunnable {
 
         DyeColor color = DyeColor.WHITE;
         while(color.equals(DyeColor.WHITE)) {
-            color = TheDrawer.DYE_COLORS[miniGame.getGame().getRandom().nextInt(TheDrawer.DYE_COLORS.length)];
+            color = TheDrawer.getDyeColors()[miniGame.getGame().getRandom().nextInt(TheDrawer.getDyeColors().length)];
         }
 
         BlockState bs = b.getState();

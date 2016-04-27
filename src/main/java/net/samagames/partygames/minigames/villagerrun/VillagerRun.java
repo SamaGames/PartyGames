@@ -1,14 +1,20 @@
 package net.samagames.partygames.minigames.villagerrun;
 
+import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.game.PartyGames;
+import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.MiniGame;
 import net.samagames.partygames.minigames.villagerrun.rooms.Room;
 import net.samagames.partygames.minigames.villagerrun.rooms.RoomManager;
 import net.samagames.partygames.minigames.villagerrun.tasks.GameTask;
 import net.samagames.partygames.minigames.villagerrun.tasks.SpawnTask;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class VillagerRun extends MiniGame {
@@ -45,6 +51,7 @@ public class VillagerRun extends MiniGame {
 
     private SpawnTask spawnTask;
 
+    private Map<Integer, PartyGamesPlayer> winners = new HashMap<>();
 
     public VillagerRun(PartyGames game) {
         super(NAME, DESCRIPTION, game);
@@ -52,12 +59,12 @@ public class VillagerRun extends MiniGame {
 
     @Override
     public void initGame(){
-        roomManager = new RoomManager();
-        minSpawnFrequency = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs().getAsJsonObject("games").getAsJsonObject("villagerrun").get("min-spawnFrequency").getAsLong();
-        spawnFrequency =  SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs().getAsJsonObject("games").getAsJsonObject("villagerrun").get("max-spawnFrequency").getAsLong();
+        roomManager = new RoomManager(this);
+        JsonObject villagerRun = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs().getAsJsonObject("games").getAsJsonObject("villagerrun");
+        minSpawnFrequency = villagerRun.get("min-spawnFrequency").getAsLong();
+        spawnFrequency =  villagerRun.get("max-spawnFrequency").getAsLong();
         game.getRegisteredGamePlayers().values().forEach(player -> {
-            Room room = new Room(SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs()
-                    .getAsJsonObject("games").getAsJsonObject("villagerrun").getAsJsonArray("rooms")
+            Room room = new Room(villagerRun.getAsJsonArray("rooms")
                     .get(player.getRoomId()).getAsJsonObject());
             room.attachPlayer(player);
             roomManager.addRoom(room);
@@ -97,7 +104,20 @@ public class VillagerRun extends MiniGame {
         spawnTask.cancel();
         verifTask.cancel();
         roomManager.clearRooms();
-        winner.givePoints(10);
+        winners.put(1, winner);
+        winners.forEach((i, partyGamesPlayer) -> {
+            int points = 0;
+            if(i == 1)
+                points = 100;
+            if(i == 2)
+                points = 50;
+            if(i == 3)
+                points = 25;
+            winners.get(i).getPlayerIfOnline().setMaxHealth(20);
+            winners.get(i).getPlayerIfOnline().setHealth(20);
+            winners.get(i).givePoints(points);
+            winners.get(i).getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ "+points+" points");
+        });
         shouldEnd = true;
     }
 
@@ -115,6 +135,10 @@ public class VillagerRun extends MiniGame {
 
     public void incrementSecondsElapsed() {
         this.secondsElapsed++;
+    }
+
+    public void addWinner(int pos, PartyGamesPlayer player){
+        this.winners.put(pos, player);
     }
 
     /**

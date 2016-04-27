@@ -1,6 +1,7 @@
 package net.samagames.partygames.minigames.villagerrun.rooms;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.villagerrun.entities.NPC;
@@ -8,7 +9,6 @@ import net.samagames.tools.LocationUtils;
 import net.samagames.tools.scoreboards.ObjectiveSign;
 import net.samagames.tools.scoreboards.VObjective;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -50,12 +50,12 @@ public class Room {
         List<Location> destinationList = new ArrayList<>();
 
         paths.forEach(jsonElement -> {
-            JsonObject entry = jsonElement.getAsJsonObject();
-            Location origin = LocationUtils.str2loc(entry.get("origin").getAsString());
-            origin.setPitch(Float.parseFloat(entry.get("origin").getAsString().split(", ")[5]));
-            origin.setYaw(Float.parseFloat(entry.get("origin").getAsString().split(", ")[4]));
+            JsonElement entry = jsonElement.getAsJsonObject().get("origin");
+            Location origin = LocationUtils.str2loc(entry.getAsString());
+            origin.setPitch(Float.parseFloat(entry.getAsString().split(", ")[5]));
+            origin.setYaw(Float.parseFloat(entry.getAsString().split(", ")[4]));
             originList.add(origin);
-            destinationList.add(LocationUtils.str2loc(entry.get("destination").getAsString()));
+            destinationList.add(LocationUtils.str2loc(jsonElement.getAsJsonObject().get("destination").getAsString()));
         });
 
         villagerSpawnPoints.addAll(originList);

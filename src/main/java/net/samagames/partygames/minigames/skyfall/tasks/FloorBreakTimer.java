@@ -1,6 +1,5 @@
 package net.samagames.partygames.minigames.skyfall.tasks;
 
-import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.minigames.skyfall.Skyfall;
 import net.samagames.partygames.tasks.Timer;
 import net.samagames.tools.Titles;
@@ -16,7 +15,7 @@ public class FloorBreakTimer extends Timer {
 
     @Override
     public void run(){
-        if(game.getPlayers().size() <= 1|| game.getRound() > 6) {
+        if(game.getPlayers().size() <= 1|| game.getRound() > 6) { // If there is only one player or that we have an ex-aequo
             game.endGame();
             this.cancel();
         }

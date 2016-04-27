@@ -4,6 +4,7 @@ import net.minecraft.server.v1_9_R1.BlockPosition;
 import net.minecraft.server.v1_9_R1.Entity;
 import net.minecraft.server.v1_9_R1.World;
 import net.samagames.partygames.game.PartyGamesPlayer;
+import net.samagames.partygames.minigames.villagerrun.VillagerRun;
 import net.samagames.partygames.minigames.villagerrun.entities.NPC;
 import net.samagames.tools.ParticleEffect;
 import org.bukkit.Bukkit;
@@ -11,9 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +31,15 @@ public class RoomManager {
      * Array that contains every {@link Room} which will lose next tick
      */
     private List<Room> roomsRemove = new ArrayList<>();
+
+    /**
+     * VillagerRun instance
+     */
+    private VillagerRun game;
+
+    public RoomManager(VillagerRun game){
+        this.game = game;
+    }
 
     public void startGame(){
         roomsPlaying.addAll(rooms);
@@ -74,6 +82,12 @@ public class RoomManager {
             room.lose();
         });
         roomsPlaying.removeAll(roomsRemove);
+        if(roomsPlaying.size() == 2){
+            game.addWinner(3, roomsRemove.get(0).getRoomPlayer());
+        }
+        else if(roomsPlaying.size() == 1){
+            game.addWinner(2, roomsRemove.get(0).getRoomPlayer());
+        }
         roomsRemove.clear();
     }
 
@@ -93,10 +107,15 @@ public class RoomManager {
         }));
     }
 
+    /**
+     * Checking the NPC position and plays an animation depending on the result
+     * @param room
+     * @param npc
+     */
     private void handleNPC(Room room, NPC npc){
         if(room.npcToRemove.contains(npc) || !npc.isAlive())
             return;
-        if ((npc.motX == 0) && (npc.motZ == 0)) {
+        if (Math.abs(npc.motX) < 0.001f && Math.abs(npc.motZ) < 0.001f) {
             Location npcLoc = new Location(Bukkit.getServer().getWorld("VillagerRun"), npc.locX, npc.locY, npc.locZ);
             BlockPosition npcPos = new BlockPosition(npc.locX, npc.locY, npc.locZ);
             BlockPosition objPos = new BlockPosition(npc.getObjective().getX(), npc.getObjective().getY(), npc.getObjective().getZ());
