@@ -45,7 +45,7 @@ public class PartyGames extends Game<PartyGamesPlayer> {
         super.handlePostRegistration();
 
         waitingRoom = LocationUtils.str2loc(SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs().get("waiting-room").getAsString());
-
+        waitingRoom.getWorld().setPVP(false);
         mgManager = new MGManager(this);
         mgManager.addMiniGame(new Skyfall(this));
         mgManager.addMiniGame(new VillagerRun(this));
@@ -79,12 +79,6 @@ public class PartyGames extends Game<PartyGamesPlayer> {
 
             i++;
         }
-
-        // For making tests with less than three players
-        if(winners.size() < 2)
-            winners.add(winners.get(0));
-        if(winners.size() < 3)
-            winners.add(winners.get(1));
 
         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getTemplateManager()
                 .getPlayerLeaderboardWinTemplate()

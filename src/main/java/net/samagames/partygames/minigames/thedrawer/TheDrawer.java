@@ -92,16 +92,16 @@ public class TheDrawer extends MiniGame{
         timer.cancel();
         task.cancel();
 
+        Bukkit.broadcastMessage(ChatColor.RED + "Le temps est écoulé.");
         rooms.forEach((partyGamesPlayer, room) -> {
 
             if(room.isActive()) {
                 room.setActive(false);
                 room.clearBlocks();
 
-                Bukkit.broadcastMessage(ChatColor.RED + "Le temps est écoulé.");
+                partyGamesPlayer.getPlayerIfOnline().sendMessage(ChatColor.RED + "+ 0 points");
             }
         });
-
         shouldEnd = true;
     }
 

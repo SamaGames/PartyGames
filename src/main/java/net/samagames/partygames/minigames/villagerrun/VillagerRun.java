@@ -91,7 +91,6 @@ public class VillagerRun extends MiniGame {
         // Task spawn variable
         verifTask = Bukkit.getScheduler().runTaskTimerAsynchronously(game.getPlugin(), () -> roomManager.checkRoomsNPC(), 0L, 3L);
 
-        game.getPlugin().getServer().getWorld("world").setPVP(true);
 
     }
 
@@ -106,17 +105,25 @@ public class VillagerRun extends MiniGame {
         roomManager.clearRooms();
         winners.put(1, winner);
         winners.forEach((i, partyGamesPlayer) -> {
+            String pos = "";
             int points = 0;
-            if(i == 1)
+            if (i == 1) {
+                pos = "1er";
                 points = 100;
-            if(i == 2)
+            }
+            if (i == 2) {
+                pos = "2ème";
                 points = 50;
-            if(i == 3)
+            }
+            if (i == 3){
+                pos = "3ème";
                 points = 25;
-            winners.get(i).getPlayerIfOnline().setMaxHealth(20);
-            winners.get(i).getPlayerIfOnline().setHealth(20);
-            winners.get(i).givePoints(points);
-            winners.get(i).getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ "+points+" points");
+            }
+            partyGamesPlayer.getPlayerIfOnline().setMaxHealth(20);
+            partyGamesPlayer.getPlayerIfOnline().setHealth(20);
+            partyGamesPlayer.givePoints(points);
+            partyGamesPlayer.getPlayerIfOnline().sendMessage(ChatColor.BLUE + "Vous êtes "+ChatColor.GOLD+pos+ChatColor.BLUE+" !");
+            partyGamesPlayer.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ "+points+" points");
         });
         shouldEnd = true;
     }

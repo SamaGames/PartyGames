@@ -4,6 +4,8 @@ import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.game.PartyGames;
 import net.samagames.partygames.tasks.MiniGameStartTimer;
+import net.samagames.partygames.tasks.WaitingTimer;
+import net.samagames.tools.LocationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -22,6 +24,9 @@ public class MGManager {
     private int currentGameID;
 
     private PartyGames game;
+
+    private static int minigameStartTimer;
+    private static int teleportTimer;
 
     private BukkitTask updateTask;
 
@@ -43,14 +48,18 @@ public class MGManager {
             i++;
         }
 
-        currentGameID = 0;
-        switchMiniGame(miniGameList.get(0));
+
+        minigameStartTimer = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs().get("minigame-start-timer").getAsInt();
+        teleportTimer = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs().get("teleport-timer").getAsInt();
+
+        currentGameID = game.getRandom().nextInt(miniGameList.size());
+        switchMiniGame(miniGameList.get(currentGameID));
 
         updateTask = Bukkit.getScheduler().runTaskTimer(game.getPlugin(), () -> {
             if(miniGameList.get(currentGameID).mustEnd()){
-                if(miniGameList.size() > currentGameID + 1) {
-                    currentGameID++;
-
+                miniGameList.remove(miniGameList.get(currentGameID));
+                if(!miniGameList.isEmpty()) {
+                    currentGameID = game.getRandom().nextInt(miniGameList.size());
                     switchMiniGame(miniGameList.get(currentGameID));
                 } else {
                     updateTask.cancel();
@@ -67,13 +76,7 @@ public class MGManager {
         });
 
         SamaGamesAPI.get().getGameManager().getCoherenceMachine().setNameShortcut(miniGame.getName());
-        miniGame.initGame();
-
-        Bukkit.broadcastMessage(ChatColor.BLUE + "Le prochain jeu est " + ChatColor.BOLD + ChatColor.GREEN + miniGame.getName());
-        Bukkit.broadcastMessage("Les règles sont les suivantes :");
-        Bukkit.broadcastMessage(ChatColor.GRAY+miniGame.getDescription());
-
-        new MiniGameStartTimer(miniGame).runTaskTimer(game.getPlugin(), 0L, 20L);
+        new WaitingTimer(miniGame, game).runTaskTimer(game.getPlugin(), 0L, 20L);
     }
 
     public void sendEvent(Event e){
@@ -88,5 +91,13 @@ public class MGManager {
 
     public MiniGame getCurrentMinigame(){
         return miniGameList.get(currentGameID);
+    }
+
+    public static int getMinigameStartTimer() {
+        return minigameStartTimer;
+    }
+
+    public static int getTeleportTimer() {
+        return teleportTimer;
     }
 }

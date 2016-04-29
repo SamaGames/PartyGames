@@ -49,6 +49,7 @@ public class BlockListener implements Listener {
                     player.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ " + pts + " points");
                 } else {
                     e.getPlayer().sendMessage(ChatColor.RED + "\nVotre dessin ne correspond pas au modèle !");
+                    player.getPlayerIfOnline().sendMessage(ChatColor.RED + "+ 0 points");
                 }
             }
         }

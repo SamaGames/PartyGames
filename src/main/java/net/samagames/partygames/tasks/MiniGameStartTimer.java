@@ -1,17 +1,16 @@
 package net.samagames.partygames.tasks;
 
 import net.samagames.api.SamaGamesAPI;
+import net.samagames.partygames.minigames.MGManager;
 import net.samagames.partygames.minigames.MiniGame;
 import org.bukkit.ChatColor;
 
 public class MiniGameStartTimer extends Timer {
 
-    public static final int START_TIME = 5;
-
     private MiniGame miniGame;
 
-    public MiniGameStartTimer(MiniGame miniGame) {
-        super(START_TIME);
+    MiniGameStartTimer(MiniGame miniGame) {
+        super(MGManager.getMinigameStartTimer());
 
         this.miniGame = miniGame;
     }

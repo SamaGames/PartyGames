@@ -1,5 +1,7 @@
 {
 	"waiting-room": "world, 0, 4, 0, 0, 0",
+	"minigame-start-timer": 10,
+	"teleport-timer": 10,
 	"games": {
 		"blockdodger": {
 			"rooms": [

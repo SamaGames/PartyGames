@@ -9,6 +9,7 @@ import net.samagames.tools.LocationUtils;
 import net.samagames.tools.scoreboards.ObjectiveSign;
 import net.samagames.tools.scoreboards.VObjective;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -82,6 +83,7 @@ public class Room {
         npcList.forEach(this::removeNPC);
         scoreBoard.clearScores();
         scoreBoard.removeReceiver(attachedPlayer.getPlayerIfOnline());
+        attachedPlayer.getPlayerIfOnline().setGameMode(GameMode.SPECTATOR);
         attachedPlayer = null;
         errors = 0;
         score = 0;
