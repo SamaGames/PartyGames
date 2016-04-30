@@ -3,6 +3,7 @@ package net.samagames.partygames.minigames.blockdodger.tasks;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.blockdodger.BlockDodger;
 import net.samagames.partygames.minigames.blockdodger.BlockDodgerRoom;
+import net.samagames.tools.Area;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -51,23 +52,9 @@ public class BlockDodgerTask extends BukkitRunnable {
 
     private void handleRoom(BlockDodgerRoom room, PartyGamesPlayer player) {
         for (Block oldBlock : room.getMovingBlocks().toArray(new Block[room.getMovingBlocks().size()])) {
-            Block newBlock;
-
-            if (room.getColumnAxis().equals(BlockDodgerRoom.ColumnAxis.X_AXIS)) {
-                if (room.getBlockPos1().getBlockX() < room.getBlockPos2().getBlockX()) {
-                    newBlock = oldBlock.getRelative(1, 0, 0);
-                } else {
-                    newBlock = oldBlock.getRelative(-1, 0, 0);
-                }
-            } else {
-                if (room.getBlockPos1().getBlockZ() < room.getBlockPos2().getBlockZ()) {
-                    newBlock = oldBlock.getRelative(0, 0, 1);
-                } else {
-                    newBlock = oldBlock.getRelative(0, 0, -1);
-                }
-            }
-
-            if (isBlockInsideBlocksArea(newBlock, room)) {
+            Block newBlock = getNewBlock(room, oldBlock);
+            Area area = new Area(room.getBlockPos1(), room.getBlockPos2());
+            if (area.isInArea(newBlock.getLocation())) {
                 newBlock.setType(Material.STEP);
                 room.getMovingBlocks().add(newBlock);
             }
@@ -118,30 +105,21 @@ public class BlockDodgerTask extends BukkitRunnable {
         room.getMovingBlocks().add(block);
     }
 
-    private boolean isBlockInsideBlocksArea(Block b, BlockDodgerRoom room) {
-        if(b.getY() != room.getBlockPos1().getBlockY())
-            return false;
-
-        if(room.getBlockPos1().getBlockX() < room.getBlockPos2().getBlockX()) {
-            if(b.getX() < room.getBlockPos1().getBlockX() ||
-                    b.getX() > room.getBlockPos2().getBlockX())
-                return false;
+    private Block getNewBlock(BlockDodgerRoom room, Block oldBlock){
+        Block newBlock;
+        if (room.getColumnAxis().equals(BlockDodgerRoom.ColumnAxis.X_AXIS)) {
+            if (room.getBlockPos1().getBlockX() < room.getBlockPos2().getBlockX()) {
+                newBlock = oldBlock.getRelative(1, 0, 0);
+            } else {
+                newBlock = oldBlock.getRelative(-1, 0, 0);
+            }
         } else {
-            if(b.getX() > room.getBlockPos1().getBlockX() ||
-                    b.getX() < room.getBlockPos2().getBlockX())
-                return false;
+            if (room.getBlockPos1().getBlockZ() < room.getBlockPos2().getBlockZ()) {
+                newBlock = oldBlock.getRelative(0, 0, 1);
+            } else {
+                newBlock = oldBlock.getRelative(0, 0, -1);
+            }
         }
-
-        if(room.getBlockPos1().getBlockZ() < room.getBlockPos2().getBlockZ()) {
-            if(b.getZ() < room.getBlockPos1().getBlockZ() ||
-                    b.getZ() > room.getBlockPos2().getBlockZ())
-                return false;
-        } else {
-            if(b.getZ() > room.getBlockPos1().getBlockZ() ||
-                    b.getZ() < room.getBlockPos2().getBlockZ())
-                return false;
-        }
-
-        return true;
+        return newBlock;
     }
 }

@@ -57,6 +57,7 @@ public class PartyGames extends Game<PartyGamesPlayer> {
     public void handleGameEnd() {
         super.handleGameEnd();
 
+        // Ordering players by points descending
         Comparator<PartyGamesPlayer> comparator = (PartyGamesPlayer p1, PartyGamesPlayer p2)
                 -> p2.getPoints() - p1.getPoints();
         SortedSet<PartyGamesPlayer> players = new TreeSet<>(comparator);
@@ -64,6 +65,7 @@ public class PartyGames extends Game<PartyGamesPlayer> {
 
         List<PartyGamesPlayer> winners = new ArrayList<>();
 
+        // Then showing them
         Iterator<PartyGamesPlayer> it = players.iterator();
         int i = 0;
         while(it.hasNext()) {

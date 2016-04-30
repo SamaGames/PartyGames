@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class BlockListener implements Listener {
 
-    TheDrawer miniGame;
+    private TheDrawer miniGame;
 
     public BlockListener(TheDrawer miniGame) {
         this.miniGame = miniGame;

@@ -110,8 +110,6 @@ public class Skyfall extends MiniGame {
                 pos = "3ème";
                 points = 25;
             }
-            partyGamesPlayer.getPlayerIfOnline().setMaxHealth(20);
-            partyGamesPlayer.getPlayerIfOnline().setHealth(20);
             partyGamesPlayer.givePoints(points);
             partyGamesPlayer.getPlayerIfOnline().sendMessage(ChatColor.BLUE + "Vous êtes "+ChatColor.GOLD+pos+ChatColor.BLUE+" !");
             partyGamesPlayer.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ "+points+" points");

@@ -3,11 +3,8 @@ package net.samagames.partygames.minigames;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.game.PartyGames;
-import net.samagames.partygames.tasks.MiniGameStartTimer;
 import net.samagames.partygames.tasks.WaitingTimer;
-import net.samagames.tools.LocationUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -25,8 +22,8 @@ public class MGManager {
 
     private PartyGames game;
 
-    private static int minigameStartTimer;
-    private static int teleportTimer;
+    private int minigameStartTimer;
+    private int teleportTimer;
 
     private BukkitTask updateTask;
 
@@ -73,6 +70,8 @@ public class MGManager {
         game.getRegisteredGamePlayers().values().forEach(partyGamesPlayer -> {
             partyGamesPlayer.getPlayerIfOnline().setGameMode(GameMode.ADVENTURE);
             partyGamesPlayer.getPlayerIfOnline().teleport(game.getWaitingRoom());
+            partyGamesPlayer.getPlayerIfOnline().setMaxHealth(20);
+            partyGamesPlayer.getPlayerIfOnline().setHealth(20);
         });
 
         SamaGamesAPI.get().getGameManager().getCoherenceMachine().setNameShortcut(miniGame.getName());
@@ -93,11 +92,11 @@ public class MGManager {
         return miniGameList.get(currentGameID);
     }
 
-    public static int getMinigameStartTimer() {
+    public int getMinigameStartTimer() {
         return minigameStartTimer;
     }
 
-    public static int getTeleportTimer() {
+    public int getTeleportTimer() {
         return teleportTimer;
     }
 }

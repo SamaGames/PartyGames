@@ -1,19 +1,16 @@
 package net.samagames.partygames.minigames.blockdodger;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.partygames.game.PartyGames;
 import net.samagames.partygames.game.PartyGamesPlayer;
 import net.samagames.partygames.minigames.MiniGame;
 import net.samagames.partygames.minigames.blockdodger.tasks.BlockDodgerTask;
 import net.samagames.partygames.tasks.Timer;
-import net.samagames.tools.LocationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.WorldCreator;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class BlockDodger extends MiniGame{
 
@@ -62,9 +59,7 @@ public class BlockDodger extends MiniGame{
         timer.cancel();
         task.cancel();
 
-        for(PartyGamesPlayer player : rooms.keySet()) {
-            BlockDodgerRoom room = rooms.get(player);
-
+        rooms.forEach((player, room) -> {
             if(room.isActive()) {
                 room.setActive(false);
                 room.clearBlocks();
@@ -75,7 +70,10 @@ public class BlockDodger extends MiniGame{
                 Bukkit.broadcastMessage(ChatColor.YELLOW + "Le temps est écoulé.");
                 player.getPlayerIfOnline().sendMessage(ChatColor.GOLD + "+ " + pts + " points");
             }
-        }
+
+        });
+
+
 
         shouldEnd = true;
     }
@@ -84,7 +82,7 @@ public class BlockDodger extends MiniGame{
         return timer;
     }
 
-    public HashMap<PartyGamesPlayer, BlockDodgerRoom> getRooms() {
+    public Map<PartyGamesPlayer, BlockDodgerRoom> getRooms() {
         return rooms;
     }
 }

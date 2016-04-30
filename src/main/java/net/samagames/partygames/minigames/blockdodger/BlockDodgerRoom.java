@@ -11,7 +11,6 @@ import java.util.List;
 
 public class BlockDodgerRoom {
 
-    private JsonObject json;
 
     private Location spawn;
     private Location blockPos1;
@@ -22,13 +21,11 @@ public class BlockDodgerRoom {
     private boolean active;
 
     public BlockDodgerRoom(JsonObject json) {
-        this.json = json;
-
         spawn = LocationUtils.str2loc(json.get("spawn").getAsString());
         blockPos1 = LocationUtils.str2loc(json.getAsJsonObject("blocks").get("pos1").getAsString());
         blockPos2 = LocationUtils.str2loc(json.getAsJsonObject("blocks").get("pos2").getAsString());
 
-        if(json.get("columnAxis").getAsString().equalsIgnoreCase("X")) {
+        if("X".equalsIgnoreCase(json.get("columnAxis").getAsString())) {
             columnAxis = ColumnAxis.X_AXIS;
         } else {
             columnAxis = ColumnAxis.Z_AXIS;
@@ -55,6 +52,9 @@ public class BlockDodgerRoom {
         return columnAxis;
     }
 
+    /**
+     * Clears all the moving blocks in the room
+     */
     public void clearBlocks() {
         int y = blockPos1.getBlockY();
 
